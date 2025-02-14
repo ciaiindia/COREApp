@@ -1588,16 +1588,24 @@ def execute_snowflake_query():
                 count = cursor.fetchone()[0]
                 print(f"Total records in {table}: {count}")
             print("All tables processed successfully!")
-
-            # Verify the table records count
-            for table in tables.keys():
-                cursor.execute(f"SELECT COUNT(*) FROM CORE_APP.{table}")
-                count = cursor.fetchone()[0]
-                print(f"Total records in {table}: {count}")
-		    
+	    for table in tables.keys():
+	        cursor.execute(f"SELECT COUNT(*) FROM CORE_APP.{table}")
+	        count = cursor.fetchone()[0]
+	        print(f"Total records in {table}: {count}")
+	
 	    cursor.execute("SELECT * FROM CORE_APP.ALL_CRITERIA_PATIENT LIMIT 1")
-            rows = cursor.fetchall()
-            columns = [desc[0] for desc in cursor.description]
+	    rows = cursor.fetchall()
+	    columns = [desc[0] for desc in cursor.description]
+
+
+ #            # Verify the table records count
+ #            for table in tables.keys():
+ #                cursor.execute(f"SELECT COUNT(*) FROM CORE_APP.{table}")
+ #                count = cursor.fetchone()[0]
+ #                print(f"Total records in {table}: {count}")
+	# cursor.execute("SELECT * FROM CORE_APP.ALL_CRITERIA_PATIENT LIMIT 1")
+ #            rows = cursor.fetchall()
+ #            columns = [desc[0] for desc in cursor.description]
 
             # Convert each row to {column_name: value}
             result_data = [dict(zip(columns, row)) for row in rows]
